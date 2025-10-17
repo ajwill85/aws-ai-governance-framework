@@ -72,7 +72,7 @@ class SageMakerScanner:
                     resource_arn=response['NotebookInstanceArn'],
                     severity='HIGH',
                     issue='Notebook instance does not have KMS encryption enabled',
-                    control='ISO 27001 A.8.24, ISO 27701 6.6.1',
+                    control='ISO 27001:2022 A.8.24 (Cryptography), ISO 27701:2025 6.6.1, ISO 42001:2023 6.3.1',
                     remediation='Enable KMS encryption for the notebook instance',
                     timestamp=datetime.utcnow().isoformat(),
                     region=self.region
@@ -86,7 +86,7 @@ class SageMakerScanner:
                     resource_arn=response['NotebookInstanceArn'],
                     severity='MEDIUM',
                     issue='Root access is enabled on notebook instance',
-                    control='ISO 27001 A.5.18',
+                    control='ISO 27001:2022 A.5.18 (Access Rights)',
                     remediation='Disable root access on the notebook instance',
                     timestamp=datetime.utcnow().isoformat(),
                     region=self.region
@@ -100,7 +100,7 @@ class SageMakerScanner:
                     resource_arn=response['NotebookInstanceArn'],
                     severity='HIGH',
                     issue='Notebook has direct internet access without VPC',
-                    control='ISO 27001 A.8.20, ISO 42001 6.3.2',
+                    control='ISO 27001:2022 A.8.20/A.8.21 (Network Security), ISO 42001:2023 6.3.2',
                     remediation='Deploy notebook in VPC or disable direct internet access',
                     timestamp=datetime.utcnow().isoformat(),
                     region=self.region
@@ -114,7 +114,7 @@ class SageMakerScanner:
                     resource_arn=response['NotebookInstanceArn'],
                     severity='LOW',
                     issue='Missing required tags (DataClassification, Owner, Purpose)',
-                    control='ISO 27001 A.5.12',
+                    control='ISO 27001:2022 A.5.12 (Information Classification)',
                     remediation='Add required tags to the notebook instance',
                     timestamp=datetime.utcnow().isoformat(),
                     region=self.region
@@ -240,7 +240,7 @@ class SageMakerScanner:
                     resource_arn=response['ModelArn'],
                     severity='LOW',
                     issue='Missing required tags',
-                    control='ISO 27001 A.5.12',
+                    control='ISO 27001:2022 A.5.12 (Information Classification)',
                     remediation='Add required tags to the model',
                     timestamp=datetime.utcnow().isoformat(),
                     region=self.region

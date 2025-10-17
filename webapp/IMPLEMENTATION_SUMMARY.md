@@ -98,7 +98,7 @@ webapp/
 2. **Compliance Trends** - 30-day historical chart
 3. **AWS Accounts** - Account list with quick scan
 4. **Recent Activity** - Latest scans and changes
-5. **Control Coverage** - ISO 27001/27701/42001 donut charts
+5. **Control Coverage** - ISO 27001:2022/27701:2025/42001:2023 donut charts (67 total controls)
 6. **Remediation Progress** - Task status breakdown
 
 **Priority Findings:**

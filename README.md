@@ -1,6 +1,6 @@
 # AWS AI Governance Framework with Policy-as-Code
 
-A comprehensive security and compliance framework for AWS AI/ML systems, implementing automated controls across ISO 27001, ISO 27701, and ISO 42001 standards.
+A comprehensive security and compliance framework for AWS AI/ML systems, implementing automated controls across ISO 27001:2022, ISO 27701:2025, and ISO 42001:2023 standards.
 
 ## 🎯 Project Overview
 
@@ -38,10 +38,15 @@ This framework provides automated policy enforcement, security scanning, and com
 ## ✨ Features
 
 ### Policy-as-Code (OPA/Rego)
-- ✅ SageMaker encryption enforcement
-- ✅ Network isolation validation
-- ✅ IAM least privilege checks
-- ✅ Data classification requirements
+- ✅ SageMaker encryption enforcement (A.8.24)
+- ✅ Network isolation validation (A.8.20/A.8.21)
+- ✅ IAM least privilege checks (A.5.15-A.5.18)
+- ✅ Data classification requirements (A.5.12)
+- ✅ Threat intelligence integration (A.5.7) - NEW 2022
+- ✅ Authentication enforcement (A.5.17) - NEW 2022
+- ✅ Data masking for PII (A.8.11) - NEW 2022
+- ✅ Secure coding validation (A.8.28) - NEW 2022
+- ✅ AI impact assessments (ISO 42001 Clause 6.6)
 
 ### Python Security Scanners
 - ✅ SageMaker resource scanner
@@ -50,9 +55,10 @@ This framework provides automated policy enforcement, security scanning, and com
 - ✅ Unified reporting engine
 
 ### Compliance Coverage
-- ✅ **ISO 27001** - Information Security (25 controls)
-- ✅ **ISO 27701** - Privacy Management (18 controls)
-- ✅ **ISO 42001** - AI Management (12 controls)
+- ✅ **ISO 27001:2022** - Information Security Management (30 controls)
+- ✅ **ISO 27701:2025** - Privacy Information Management (22 controls)
+- ✅ **ISO 42001:2023** - AI Management System (15 controls)
+- ✅ **Total**: 67 controls across 3 frameworks
 
 ## 🚀 Quick Start
 
@@ -99,10 +105,17 @@ opa eval -d policies/ -i test_data/sample_notebook.json "data.sagemaker.encrypti
 ```
 grc_ai_privacy/
 ├── policies/                      # OPA policy definitions
-│   ├── sagemaker_encryption.rego  # Encryption controls
-│   ├── sagemaker_network.rego     # Network security
-│   ├── iam_least_privilege.rego   # Access controls
-│   └── data_classification.rego   # Data governance
+│   ├── sagemaker_encryption.rego  # Encryption controls (A.8.24)
+│   ├── sagemaker_network.rego     # Network security (A.8.20/A.8.21)
+│   ├── iam_least_privilege.rego   # Access controls (A.5.15-A.5.18)
+│   ├── data_classification.rego   # Data governance (A.5.12)
+│   ├── threat_intelligence.rego   # Threat intelligence (A.5.7) - NEW 2022
+│   ├── acceptable_use.rego        # Acceptable use (A.5.10) - NEW 2022
+│   ├── authentication.rego        # Authentication (A.5.17) - NEW 2022
+│   ├── incident_learning.rego     # Learning from incidents (A.5.27) - NEW 2022
+│   ├── data_masking.rego          # Data masking (A.8.11) - NEW 2022
+│   ├── secure_coding.rego         # Secure coding (A.8.28) - NEW 2022
+│   └── ai_impact_assessment.rego  # AI impact assessment (ISO 42001 6.6)
 │
 ├── scanners/                      # Python security scanners
 │   ├── sagemaker_scanner.py       # SageMaker resource scanner
@@ -166,7 +179,7 @@ Severity Breakdown:
       "resource_name": "ml-notebook-dev",
       "severity": "HIGH",
       "issue": "Notebook instance does not have KMS encryption enabled",
-      "control": "ISO 27001 A.8.24, ISO 27701 6.6.1",
+      "control": "ISO 27001:2022 A.8.24 (Cryptography), ISO 27701:2025 6.6.1",
       "remediation": "Enable KMS encryption for the notebook instance"
     }
   ]
@@ -211,8 +224,8 @@ deny[msg] if {
 - **Data Privacy**: PII detection, data classification, retention
 
 ### GRC Frameworks
-- **ISO 27001:2022** - Information Security Management
-- **ISO 27701:2019** - Privacy Information Management
+- **ISO 27001:2022** (3rd edition) - Information Security Management
+- **ISO 27701:2025** - Privacy Information Management
 - **ISO 42001:2023** - AI Management System
 - **NIST AI RMF** - AI Risk Management Framework
 
@@ -229,19 +242,19 @@ deny[msg] if {
 - ✅ Core OPA policies for encryption, access control, data governance
 - ✅ Python scanners for SageMaker, IAM, S3
 - ✅ Automated reporting and evidence collection
-- ✅ 25 triple-overlap controls implemented
+- ✅ 30 triple-overlap controls implemented (ISO 27001:2022 updated)
 
 ### Phase 2: Advanced Controls (Days 31-60)
 - 🔄 Privacy-enhancing technologies (PETs)
 - 🔄 Bias detection and fairness metrics
 - 🔄 Model monitoring and drift detection
-- 🔄 18 double-overlap controls implemented
+- 🔄 22 double-overlap controls implemented
 
 ### Phase 3: Optimization (Days 61-90)
 - 📋 Business continuity procedures
 - 📋 AI ethics framework
 - 📋 Complete documentation and training
-- 📋 12 single-standard controls implemented
+- 📋 15 single-standard controls implemented
 
 See [90_DAY_IMPLEMENTATION_PLAN.md](docs/90_DAY_IMPLEMENTATION_PLAN.md) for detailed timeline.
 
@@ -332,3 +345,15 @@ This is a portfolio project demonstrating GRC engineering capabilities. For ques
 **Built with** ❤️ **for AI Governance and Privacy**
 
 *Demonstrating practical implementation of security, privacy, and AI governance controls for AWS environments.*
+
+---
+
+## 📚 Additional Documentation
+
+Comprehensive documentation has been organized in the `context_files/` directory:
+
+- **Deployment Guides**: `context_files/deployment/`
+- **Project Documentation**: `context_files/project_docs/`
+- **Security & Cost Analysis**: `context_files/security_analysis/`
+
+See `context_files/README.md` for a complete index.
