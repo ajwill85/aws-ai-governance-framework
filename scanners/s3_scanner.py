@@ -1,7 +1,9 @@
 """
 S3 Data Governance Scanner
 Scans S3 buckets for data classification and governance violations
-ISO 27001 A.5.12, A.5.34, ISO 27701 6.4.1-6.4.4, ISO 42001 6.2.1-6.2.4
+ISO 27001:2022 A.5.10 (Acceptable Use), A.5.12 (Information Classification), 
+A.5.34 (Data Retention), A.8.24 (Cryptography)
+ISO 27701:2025 6.4.1-6.4.4, ISO 42001:2023 6.2.1-6.2.4
 """
 
 import boto3
@@ -105,7 +107,7 @@ class S3Scanner:
                     bucket_name=bucket_name,
                     severity='HIGH',
                     issue='Missing DataClassification tag',
-                    control='ISO 27001 A.5.12, ISO 27701 6.4.1',
+                    control='ISO 27001:2022 A.5.12 (Information Classification), ISO 27701:2025 6.4.1',
                     remediation='Add DataClassification tag (PUBLIC, INTERNAL, SENSITIVE, PII, CONFIDENTIAL)',
                     timestamp=datetime.utcnow().isoformat(),
                     region=region
@@ -118,7 +120,7 @@ class S3Scanner:
                     bucket_name=bucket_name,
                     severity='LOW',
                     issue=f'Missing required tags: {", ".join(missing_tags)}',
-                    control='ISO 27001 A.5.12',
+                    control='ISO 27001:2022 A.5.12 (Information Classification)',
                     remediation='Add missing tags',
                     timestamp=datetime.utcnow().isoformat(),
                     region=region
@@ -128,7 +130,7 @@ class S3Scanner:
                 bucket_name=bucket_name,
                 severity='HIGH',
                 issue='No tags configured',
-                control='ISO 27001 A.5.12, ISO 27701 6.4.1',
+                control='ISO 27001:2022 A.5.12 (Information Classification), ISO 27701:2025 6.4.1',
                 remediation='Add required tags including DataClassification',
                 timestamp=datetime.utcnow().isoformat(),
                 region=region
@@ -145,7 +147,7 @@ class S3Scanner:
                 bucket_name=bucket_name,
                 severity='CRITICAL',
                 issue='Bucket encryption not enabled',
-                control='ISO 27001 A.8.24, ISO 27701 6.6.1',
+                control='ISO 27001:2022 A.8.24 (Cryptography), ISO 27701:2025 6.6.1, ISO 42001:2023 6.3.1',
                 remediation='Enable default encryption with AWS KMS',
                 timestamp=datetime.utcnow().isoformat(),
                 region=region
@@ -162,7 +164,7 @@ class S3Scanner:
                     bucket_name=bucket_name,
                     severity='MEDIUM',
                     issue='Versioning not enabled',
-                    control='ISO 27701 6.4.3',
+                    control='ISO 27701:2025 6.4.3',
                     remediation='Enable versioning for data protection and audit trail',
                     timestamp=datetime.utcnow().isoformat(),
                     region=region
@@ -179,7 +181,7 @@ class S3Scanner:
                 bucket_name=bucket_name,
                 severity='MEDIUM',
                 issue='No lifecycle policy configured',
-                control='ISO 27001 A.5.34, ISO 27701 6.4.3',
+                control='ISO 27001:2022 A.5.34 (Data Retention), ISO 27701:2025 6.4.3, ISO 42001:2023 6.2.3',
                 remediation='Configure lifecycle policy for data retention',
                 timestamp=datetime.utcnow().isoformat(),
                 region=region

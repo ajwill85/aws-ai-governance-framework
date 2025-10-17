@@ -42,7 +42,7 @@ async def get_dashboard_overview(
         severity_breakdown = latest_scan.severity_breakdown or severity_breakdown
     
     # Calculate compliance rate (simplified)
-    total_controls = 55  # ISO 27001 + 27701 + 42001
+    total_controls = 67  # ISO 27001:2022 + 27701:2025 + 42001:2023 (v2 mapping)
     violated_controls = len(set([
         f.control for f in db.query(models.Finding).filter(
             models.Finding.scan_id == latest_scan.id if latest_scan else None,
@@ -141,9 +141,9 @@ async def get_control_coverage(
     
     if not latest_scan:
         return {
-            "iso_27001": {"total": 25, "compliant": 0, "percentage": 0},
-            "iso_27701": {"total": 18, "compliant": 0, "percentage": 0},
-            "iso_42001": {"total": 12, "compliant": 0, "percentage": 0}
+            "iso_27001": {"total": 30, "compliant": 0, "percentage": 0},
+            "iso_27701": {"total": 22, "compliant": 0, "percentage": 0},
+            "iso_42001": {"total": 15, "compliant": 0, "percentage": 0}
         }
     
     # Get violated controls
@@ -161,19 +161,19 @@ async def get_control_coverage(
     
     return {
         "iso_27001": {
-            "total": 25,
-            "compliant": 25 - iso_27001_violated,
-            "percentage": round((25 - iso_27001_violated) / 25 * 100, 1)
+            "total": 30,
+            "compliant": 30 - iso_27001_violated,
+            "percentage": round((30 - iso_27001_violated) / 30 * 100, 1)
         },
         "iso_27701": {
-            "total": 18,
-            "compliant": 18 - iso_27701_violated,
-            "percentage": round((18 - iso_27701_violated) / 18 * 100, 1)
+            "total": 22,
+            "compliant": 22 - iso_27701_violated,
+            "percentage": round((22 - iso_27701_violated) / 22 * 100, 1)
         },
         "iso_42001": {
-            "total": 12,
-            "compliant": 12 - iso_42001_violated,
-            "percentage": round((12 - iso_42001_violated) / 12 * 100, 1)
+            "total": 15,
+            "compliant": 15 - iso_42001_violated,
+            "percentage": round((15 - iso_42001_violated) / 15 * 100, 1)
         }
     }
 

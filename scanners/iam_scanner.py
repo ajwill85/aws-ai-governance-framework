@@ -1,7 +1,9 @@
 """
 IAM Scanner for SageMaker Roles
 Analyzes IAM roles for least privilege violations
-ISO 27001 A.5.15-A.5.18, ISO 27701 6.2.1-6.2.3, ISO 42001 6.1.3-6.1.4
+ISO 27001:2022 A.5.15 (Access Control), A.5.16 (Identity Management), 
+A.5.17 (Authentication), A.5.18 (Access Rights)
+ISO 27701:2025 6.2.1-6.2.3, ISO 42001:2023 6.1.3-6.1.4
 """
 
 import boto3
@@ -128,7 +130,7 @@ class IAMScanner:
                         role_arn=role['Arn'],
                         severity='CRITICAL',
                         issue='Role has wildcard action (*)',
-                        control='ISO 27001 A.5.15, ISO 27701 6.2.1',
+                        control='ISO 27001:2022 A.5.15 (Access Control), ISO 27701:2025 6.2.1',
                         remediation='Replace wildcard with specific actions',
                         timestamp=datetime.utcnow().isoformat()
                     ))
@@ -150,7 +152,7 @@ class IAMScanner:
                         role_arn=role['Arn'],
                         severity='HIGH',
                         issue='Role has wildcard resource (*)',
-                        control='ISO 27001 A.5.16',
+                        control='ISO 27001:2022 A.5.16 (Identity Management)',
                         remediation='Scope permissions to specific resources',
                         timestamp=datetime.utcnow().isoformat()
                     ))
@@ -179,7 +181,7 @@ class IAMScanner:
                         role_arn=role['Arn'],
                         severity='HIGH',
                         issue=f'Role has dangerous permissions: {", ".join(found_dangerous)}',
-                        control='ISO 27001 A.5.18, ISO 42001 6.1.3',
+                        control='ISO 27001:2022 A.5.18 (Access Rights), ISO 42001:2023 6.1.3',
                         remediation='Remove dangerous permissions or require approval workflow',
                         timestamp=datetime.utcnow().isoformat()
                     ))
@@ -199,7 +201,7 @@ class IAMScanner:
                         role_arn=role['Arn'],
                         severity='MEDIUM',
                         issue=f'Role not used in {days_since_use} days',
-                        control='ISO 27001 A.5.18, ISO 27701 6.2.3',
+                        control='ISO 27001:2022 A.5.18 (Access Rights), ISO 27701:2025 6.2.3',
                         remediation='Review and remove if unnecessary',
                         timestamp=datetime.utcnow().isoformat()
                     ))

@@ -1,6 +1,6 @@
 # SageMaker Encryption Policy
 # Enforces encryption requirements for SageMaker resources
-# ISO 27001 A.8.24, ISO 27701 6.6.1, ISO 42001 6.3.1
+# ISO 27001:2022 A.8.24 (Cryptography), ISO 27701:2025 6.6.1, ISO 42001:2023 6.3.1
 
 package sagemaker.encryption
 
@@ -15,7 +15,7 @@ deny[msg] if {
     input.resource_type == "AWS::SageMaker::NotebookInstance"
     not input.kms_key_id
     msg := sprintf(
-        "VIOLATION: SageMaker notebook '%s' must have KMS encryption enabled. Control: ISO 27001 A.8.24, ISO 27701 6.6.1",
+        "VIOLATION: SageMaker notebook '%s' must have KMS encryption enabled. Control: ISO 27001:2022 A.8.24 (Cryptography), ISO 27701:2025 6.6.1",
         [input.notebook_name]
     )
 }
@@ -25,7 +25,7 @@ deny[msg] if {
     input.resource_type == "AWS::SageMaker::NotebookInstance"
     input.root_access == "Enabled"
     msg := sprintf(
-        "VIOLATION: SageMaker notebook '%s' must disable root access. Control: ISO 27001 A.5.18",
+        "VIOLATION: SageMaker notebook '%s' must disable root access. Control: ISO 27001:2022 A.5.18 (Access Rights)",
         [input.notebook_name]
     )
 }
@@ -35,7 +35,7 @@ deny[msg] if {
     input.resource_type == "AWS::SageMaker::EndpointConfig"
     not input.kms_key_id
     msg := sprintf(
-        "VIOLATION: SageMaker endpoint config '%s' must encrypt data at rest. Control: ISO 27001 A.8.24",
+        "VIOLATION: SageMaker endpoint config '%s' must encrypt data at rest. Control: ISO 27001:2022 A.8.24 (Cryptography)",
         [input.endpoint_config_name]
     )
 }
@@ -45,7 +45,7 @@ deny[msg] if {
     input.resource_type == "AWS::SageMaker::TrainingJob"
     not input.output_data_config.kms_key_id
     msg := sprintf(
-        "VIOLATION: SageMaker training job '%s' must encrypt output data. Control: ISO 27001 A.8.24, ISO 42001 6.3.1",
+        "VIOLATION: SageMaker training job '%s' must encrypt output data. Control: ISO 27001:2022 A.8.24 (Cryptography), ISO 42001:2023 6.3.1",
         [input.training_job_name]
     )
 }
@@ -55,7 +55,7 @@ deny[msg] if {
     input.resource_type == "AWS::SageMaker::TrainingJob"
     not input.resource_config.volume_kms_key_id
     msg := sprintf(
-        "VIOLATION: SageMaker training job '%s' must encrypt training volumes. Control: ISO 27001 A.8.24",
+        "VIOLATION: SageMaker training job '%s' must encrypt training volumes. Control: ISO 27001:2022 A.8.24 (Cryptography)",
         [input.training_job_name]
     )
 }
@@ -65,7 +65,7 @@ deny[msg] if {
     input.resource_type == "AWS::SageMaker::TrainingJob"
     input.enable_inter_container_traffic_encryption == false
     msg := sprintf(
-        "VIOLATION: SageMaker training job '%s' must encrypt inter-container traffic. Control: ISO 27001 A.8.24",
+        "VIOLATION: SageMaker training job '%s' must encrypt inter-container traffic. Control: ISO 27001:2022 A.8.24 (Cryptography)",
         [input.training_job_name]
     )
 }
@@ -76,7 +76,7 @@ deny[msg] if {
     not input.vpc_config
     input.data_classification in ["PII", "SENSITIVE"]
     msg := sprintf(
-        "VIOLATION: SageMaker model '%s' handling %s data must use VPC configuration. Control: ISO 27701 6.6.2, ISO 42001 6.3.2",
+        "VIOLATION: SageMaker model '%s' handling %s data must use VPC configuration. Control: ISO 27001:2022 A.8.20/A.8.21 (Network Security), ISO 27701:2025 6.6.2, ISO 42001:2023 6.3.2",
         [input.model_name, input.data_classification]
     )
 }
@@ -103,9 +103,9 @@ severity[result] if {
         "level": "HIGH",
         "violations": count(deny),
         "controls_affected": [
-            "ISO 27001 A.8.24",
-            "ISO 27701 6.6.1",
-            "ISO 42001 6.3.1"
+            "ISO 27001:2022 A.8.24 (Cryptography)",
+            "ISO 27701:2025 6.6.1",
+            "ISO 42001:2023 6.3.1"
         ]
     }
 }

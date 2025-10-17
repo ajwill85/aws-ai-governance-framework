@@ -1,6 +1,6 @@
 # SageMaker Network Security Policy
 # Enforces network isolation and security group requirements
-# ISO 27001 A.8.20-A.8.21, ISO 27701 6.6.2, ISO 42001 6.3.2
+# ISO 27001:2022 A.8.20/A.8.21 (Network Security), ISO 27701:2025 6.6.2, ISO 42001:2023 6.3.2
 
 package sagemaker.network
 
@@ -15,7 +15,7 @@ deny[msg] if {
     input.direct_internet_access == "Enabled"
     not input.subnet_id
     msg := sprintf(
-        "VIOLATION: SageMaker notebook '%s' must not have direct internet access without VPC. Control: ISO 27001 A.8.20",
+        "VIOLATION: SageMaker notebook '%s' must not have direct internet access without VPC. Control: ISO 27001:2022 A.8.20 (Network Security)",
         [input.notebook_name]
     )
 }
@@ -26,7 +26,7 @@ deny[msg] if {
     input.data_classification in ["PII", "SENSITIVE", "CONFIDENTIAL"]
     not input.subnet_id
     msg := sprintf(
-        "VIOLATION: SageMaker notebook '%s' handling %s data must be deployed in VPC. Control: ISO 27701 6.6.2, ISO 42001 6.3.2",
+        "VIOLATION: SageMaker notebook '%s' handling %s data must be deployed in VPC. Control: ISO 27001:2022 A.8.20 (Network Security), ISO 27701:2025 6.6.2, ISO 42001:2023 6.3.2",
         [input.notebook_name, input.data_classification]
     )
 }
@@ -38,7 +38,7 @@ deny[msg] if {
     not input.vpc_config
     input.public_facing == true
     msg := sprintf(
-        "VIOLATION: Public-facing SageMaker endpoint '%s' must use VPC configuration. Control: ISO 27001 A.8.21, ISO 42001 6.3.2",
+        "VIOLATION: Public-facing SageMaker endpoint '%s' must use VPC configuration. Control: ISO 27001:2022 A.8.21 (Network Security), ISO 42001:2023 6.3.2",
         [input.endpoint_config_name]
     )
 }
