@@ -51,6 +51,11 @@ latest_*.html
 *_scan_*.html
 *.log
 
+# Security audit reports
+bandit_report.json
+safety_report.json
+SECURITY_AUDIT_REPORT.md
+
 # AWS credentials and config
 .aws/
 credentials
@@ -106,3 +111,6 @@ docker-compose.local.yml
 *.db
 *.sqlite
 *.sqlite3
+
+# Context files (may contain sensitive project information)
+context_files/

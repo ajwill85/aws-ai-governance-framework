@@ -17,9 +17,9 @@ services:
     image: postgres:15-alpine
     container_name: grc_postgres
     environment:
-      POSTGRES_DB: grc_governance
-      POSTGRES_USER: grc_user
-      POSTGRES_PASSWORD: grc_password_dev
+      POSTGRES_DB: ${POSTGRES_DB:-grc_governance}
+      POSTGRES_USER: ${POSTGRES_USER:-grc_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Please set POSTGRES_PASSWORD in .env file}
     ports:
       - "5432:5432"
     volumes:
@@ -48,11 +48,13 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: grc_backend
+    env_file:
+      - .env
     environment:
-      - DATABASE_URL=postgresql://grc_user:grc_password_dev@postgres:5432/grc_governance
-      - REDIS_URL=redis://redis:6379/0
-      - SECRET_KEY=dev_secret_key_change_in_production
-      - ENVIRONMENT=development
+      - DATABASE_URL=${DATABASE_URL:?Please set DATABASE_URL in .env file}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+      - SECRET_KEY=${SECRET_KEY:?Please set SECRET_KEY in .env file}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
     ports:
       - "8000:8000"
     depends_on:
@@ -68,10 +70,12 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: grc_celery_worker
+    env_file:
+      - .env
     environment:
-      - DATABASE_URL=postgresql://grc_user:grc_password_dev@postgres:5432/grc_governance
-      - REDIS_URL=redis://redis:6379/0
-      - SECRET_KEY=dev_secret_key_change_in_production
+      - DATABASE_URL=${DATABASE_URL:?Please set DATABASE_URL in .env file}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+      - SECRET_KEY=${SECRET_KEY:?Please set SECRET_KEY in .env file}
     depends_on:
       - postgres
       - redis
@@ -83,8 +87,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.dev
     container_name: grc_frontend
+    env_file:
+      - .env
     environment:
-      - VITE_API_URL=http://localhost:8000
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:8000}
     ports:
       - "3000:3000"
     depends_on:
