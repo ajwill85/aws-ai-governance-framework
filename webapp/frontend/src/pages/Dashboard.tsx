@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { 
   Shield, AlertTriangle, CheckCircle, Clock, 
-  TrendingUp, Server, Activity, BarChart3 
+  TrendingUp, Server 
 } from 'lucide-react'
 import { format } from 'date-fns'
 import { api } from '../lib/api'
