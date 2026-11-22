@@ -16,7 +16,7 @@ webapp/
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 22+
 - Python 3.11+
 - Docker & Docker Compose
 - PostgreSQL 15
@@ -39,7 +39,9 @@ docker-compose up -d
 cd backend
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+pip install -c constraints.txt -r requirements.txt
+# Production is the default. Set ENVIRONMENT=development for local development.
+export ENVIRONMENT=development
 uvicorn app.main:app --reload
 ```
 

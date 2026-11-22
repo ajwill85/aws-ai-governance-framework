@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     # Project Info
     PROJECT_NAME: str = "AWS AI Governance Platform"
     VERSION: str = "1.0.0"
-    ENVIRONMENT: str = "development"
+    ENVIRONMENT: str = "production"
 
     # API Settings
     API_V1_STR: str = "/api/v1"
@@ -55,7 +55,7 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def ensure_secret_key(self) -> "Settings":
-        env = (self.ENVIRONMENT or "development").lower()
+        env = (self.ENVIRONMENT or "production").lower()
         placeholder = {"", "your_secret_key_here", "changeme"}
         if self.SECRET_KEY.strip() not in placeholder:
             return self
