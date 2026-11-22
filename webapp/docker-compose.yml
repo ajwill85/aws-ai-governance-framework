@@ -54,6 +54,7 @@ services:
       - DATABASE_URL=${DATABASE_URL:?Please set DATABASE_URL in .env file}
       - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
       - SECRET_KEY=${SECRET_KEY:?Please set SECRET_KEY in .env file}
+      # Development mode is opt-in. The application defaults to production.
       - ENVIRONMENT=${ENVIRONMENT:-development}
     ports:
       - "8000:8000"
@@ -76,6 +77,8 @@ services:
       - DATABASE_URL=${DATABASE_URL:?Please set DATABASE_URL in .env file}
       - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
       - SECRET_KEY=${SECRET_KEY:?Please set SECRET_KEY in .env file}
+      # Development mode is opt-in. The application defaults to production.
+      - ENVIRONMENT=${ENVIRONMENT:-development}
     depends_on:
       - postgres
       - redis

@@ -1,0 +1,4 @@
+# Lower bounds applied on top of requirements.txt.
+# Install with: pip install -c constraints.txt -r requirements.txt
+python-multipart>=0.0.31
+PyJWT>=2.15.0
